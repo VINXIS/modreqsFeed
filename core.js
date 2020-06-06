@@ -36,7 +36,7 @@ discordClient.on("ready", () => {
                     thumbnail: {
                         url: "https://b.ppy.sh/thumb/" + output.mapset.id + "l.jpg"
                     },
-                    description: output.mapset.sr.join("★, ") + "★\n" + "Drain Time: " + drain + "\n" + output.mapset.difficulties + " difficulties",
+                    description: output.mapset.sr.join("★, ") + "★\n" + "Drain Time: " + output.mapset.drain + " Total Time: " + output.mapset.total + "\n" + output.mapset.difficulties + " difficulties",
                     color: (output.ranked ? 8311585 : 13632027),
                 }
             })
@@ -87,13 +87,19 @@ async function parseInfo(username, message) {
     secDrain = baseDrain - minDrain * 60
     drain = (new Array(3).join("0")+minDrain).slice(-2)+':'+(new Array(3).join("0")+secDrain).slice(-2)
 
+    baseTotal = parseFloat(set.sort((a, b) => parseFloat(b.total_length) - parseFloat(a.total_length))[0].total_length)
+    minTotal = Math.floor(baseTotal / 60)
+    secTotal = baseTotal - minTotal * 60
+    total = (new Array(3).join("0")+minTotal).slice(-2)+':'+(new Array(3).join("0")+secTotal).slice(-2)
+
     return {
         mapset: {
             id: set[0].beatmapset_id,
             title: set[0].artist + " - " + set[0].title + " by " + user.username,
             difficulties: set.length,
             sr: set.sort((a, b) => parseFloat(a.difficultyrating) - parseFloat(b.difficultyrating)).map(x => Math.round(parseFloat(x.difficultyrating) * 100) / 100),
-            drain, 
+            drain,
+            total 
         }, 
         ranked, 
         user}
