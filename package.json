@@ -1,0 +1,25 @@
+{
+  "name": "modreqsfeed",
+  "version": "1.0.0",
+  "description": "Obtains a feed from modreqs",
+  "main": "core.js",
+  "dependencies": {
+    "bancho.js": "^0.9.7",
+    "discord.js": "^12.2.0",
+    "nodesu": "^0.7.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node core.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VINXIS/modreqsFeed.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VINXIS/modreqsFeed/issues"
+  },
+  "homepage": "https://github.com/VINXIS/modreqsFeed#readme"
+}
