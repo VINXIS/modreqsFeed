@@ -1,18 +1,17 @@
 bancho = require("bancho.js")
-config = require("./config.json")
 discord = require("discord.js")
 nodesu = require("nodesu")
 
 linkregex = /(osu|old)\.ppy\.sh\/(s|b|beatmaps|beatmapsets)\/(\d+)(#osu\/(\d+))?/
 
 // Initialization
-api = new nodesu.Client(config.osuAPI)
+api = new nodesu.Client(process.env.osuAPI)
 osuClient = new bancho.BanchoClient({
-    username: config.osuIRCUser,
-    password: config.osuIRCPass
+    username: process.env.osuIRCUser,
+    password: process.env.osuIRCPass
 })
 discordClient = new discord.Client()
-discordClient.login(config.token)
+discordClient.login(process.env.token)
 
 discordClient.on("ready", () => {
     console.log(`Logged in as ${discordClient.user.tag}!`)
@@ -27,7 +26,7 @@ discordClient.on("ready", () => {
             output = await parseInfo(username, message)
             if (!output)
                 return
-            (await discordClient.channels.fetch(config.feedChannel)).send({
+            (await discordClient.channels.fetch(process.env.feedChannel)).send({
                 embed: {
                     author: {
                         name: output.mapset.title,
